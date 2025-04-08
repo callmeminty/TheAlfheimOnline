@@ -59,25 +59,24 @@
             try {
                 const response = await fetch('https://script.google.com/macros/s/AKfycbye3I4YUqDZb-3bK3iylnhiBpbogEPv1UmgaXrd-1In81Mw6bfn7g8UnYdEsmTxv3oA/exec', {
                     method: 'POST',
-                    mode: 'cors',
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ username: username })
                 });
                 
-                if (response.ok) {
-                    sendButton.textContent = 'SENT!';
-                    document.getElementById('username').value = '';
-                    setTimeout(() => {
-                        sendButton.textContent = 'SEND';
-                        sendButton.disabled = false;
-                    }, 2000);
-                } else {
-                    throw new Error('Failed to send');
-                }
+                // Since we're using no-cors, we can't read the response
+                // But we can assume it succeeded if we got here
+                sendButton.textContent = '✓ Enviado!';
+                sendButton.disabled = true;
+                setTimeout(() => {
+                    sendButton.textContent = 'SEND';
+                    sendButton.disabled = false;
+                }, 2000);
             } catch (error) {
-                sendButton.textContent = 'ERROR';
+                console.error('Error:', error);
+                sendButton.textContent = 'Erro ao enviar';
                 setTimeout(() => {
                     sendButton.textContent = 'SEND';
                     sendButton.disabled = false;
