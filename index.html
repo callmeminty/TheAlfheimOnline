@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lean Production</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">LeanProduction</div>
+            <div class="auth-buttons">
+                <button class="sign-in">Sign In</button>
+                <button class="sign-up">Sign Up</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="subscribe-text">
+                <h1>Subscribe for <span class="highlight">FREE</span> "The<br><span class="game-title">Alfheim Online</span>" Access!</h1>
+            </div>
+
+            <div class="username-section">
+                <div class="card">
+                    <h2>Enter Roblox Username<br><span class="subtext">To get free Alfheim Access</span></h2>
+                    <div class="date">1/09/2025</div>
+                    <div class="input-group">
+                        <form id="usernameForm">
+                            <input type="text" id="username" placeholder="Username..." required>
+                            <button type="submit" class="send-button">SEND</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                Made with love by: LEAN
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('usernameForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const sendButton = document.querySelector('.send-button');
+            
+            // Disable the button and show loading state
+            sendButton.disabled = true;
+            sendButton.textContent = 'SENDING...';
+            
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbye3I4YUqDZb-3bK3iylnhiBpbogEPv1UmgaXrd-1In81Mw6bfn7g8UnYdEsmTxv3oA/exec', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username: username })
+                });
+                
+                if (response.ok) {
+                    sendButton.textContent = 'SENT!';
+                    document.getElementById('username').value = '';
+                    setTimeout(() => {
+                        sendButton.textContent = 'SEND';
+                        sendButton.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error('Failed to send');
+                }
+            } catch (error) {
+                sendButton.textContent = 'ERROR';
+                setTimeout(() => {
+                    sendButton.textContent = 'SEND';
+                    sendButton.disabled = false;
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html> 
