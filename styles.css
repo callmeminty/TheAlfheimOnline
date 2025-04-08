@@ -83,6 +83,7 @@ header {
     font-weight: 700;
     margin-bottom: 1rem;
     background: linear-gradient(45deg, #82ff63, #00ff9d);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
